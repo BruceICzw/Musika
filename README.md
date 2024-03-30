@@ -47,7 +47,7 @@ $ npm run start:dev
 - `POST /api/adverts/upload`: Create a new advert (authenticated)
 - `GET /api/adverts/:category`: Get approved adverts by category
 - `PUT /api/advert/:id`: Update advert by ID (authenticated)
-- `DELETE /events/delete/:id`: Delete event by ID (authenticated)
+- `DELETE /advert/delete/:id`: Delete advert by ID (authenticated)
 
 ### User Profiles
 
