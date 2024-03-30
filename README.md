@@ -124,6 +124,11 @@ $ npm run start:dev
 - `Mongoose`: MongoDB object modeling tool
 - `bcryptjs`: Password hashing library
 - `jsonwebtoken`: JWT authentication library
+- `multer`: Middleware for handling file uploads
+- nodemon: Library for automatically restarting the server when changes are made
+- cors: Library for enabling CORS in Express.js
+- cookie-parser: Library for parsing cookies in Express.js
+- ejs: Embedded JavaScript templating engine
 
 ## Contibution
 
