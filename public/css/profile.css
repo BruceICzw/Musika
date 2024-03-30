@@ -1,0 +1,58 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-image: url("/images/universal.png");
+  background-position: center;
+  color: #fff;
+}
+button {
+  /* min-width: 130px; */
+  /* width: 50px; */
+  height: 40px;
+  color: #fff;
+  padding: 5px 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  background: #1a2030;
+  text-align: center;
+  justify-content: center;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+button:hover {
+  background-color: #d0a800;
+}
+
+a {
+  text-decoration: none;
+  color: #d0a800;
+}
+
+hr {
+  height: 3px;
+  border-color: #d0a800;
+  fill: #d0a800;
+
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+#profile {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+}
+
+#profile #buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

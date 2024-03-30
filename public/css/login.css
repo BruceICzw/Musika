@@ -1,0 +1,79 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-image: url("/images/universal.png");
+  background-position: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  height: 100vh;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: lighter;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+.button {
+  min-width: 130px;
+  height: 40px;
+  color: #fff;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 25px;
+  border: none;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  background: #1a2030;
+  text-align: center;
+  justify-content: center;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+.button:hover {
+  background-color: #d0a800;
+}
+
+.textInput {
+  padding: 6px 12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #1a2030;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #d0a800;
+  appearance: none;
+  border-radius: 4px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  :focus {
+    color: #1a2030;
+    background-color: #d0a800;
+    border-color: #1a2030;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 /25%);
+  }
+}
+
+a {
+  text-decoration: none;
+  color: #d0a800;
+}
+label {
+  font-size: small;
+  color: #d0a800;
+}
