@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <link rel="stylesheet" href="/css/profile.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/images/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      sizes="32x32"
+      type="image/png"
+      href="/images/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      sizes="16x16"
+      type="image/png"
+      href="/images/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/images/favicon/site.webmanifest" />
+  </head>
+  <body>
+    <a href="/">Home</a>
+    <section id="profile">
+      <aside class="row">
+        <h4 id="name">Name</h4>
+        <h5 id="username">Username</h5>
+        <h6 id="email">email@gmail.com</h6>
+      </aside>
+      <aside class="row" id="buttons">
+        <button>Edit Profile &#128394;</button>
+        <button>Delete Profile &#10060;</button>
+      </aside>
+    </section>
+    <hr />
+    <section class="adverts">
+      <!-- User's adverts here -->
+    </section>
+    <script>
+      const profile = document.querySelector("#profile");
+      const name = document.querySelector("#name");
+      const username = document.querySelector("#username");
+      const email = document.querySelector("#email");
+      fetch("/api/user/profile", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          name.textContent = `${data.name} ${data.surname}`;
+          username.textContent = data.username;
+          email.textContent = data.email;
+          document.title = data.name;
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create a Musika Account</title>
+    <link rel="stylesheet" href="/css/register.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/images/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      sizes="32x32"
+      type="image/png"
+      href="/images/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      sizes="16x16"
+      type="image/png"
+      href="/images/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/images/favicon/site.webmanifest" />
+  </head>
+  <body>
+    <a href="/">Home</a>
+    <h2 style="font-style: italic">Register</h2>
+    <form>
+      <div class="error" style="background-color: red"></div>
+      <br />
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" required class="textInput" />
+      <br />
+      <label for="surname">Surname</label>
+      <input
+        type="text"
+        name="surname"
+        id="surname"
+        required
+        class="textInput"
+      />
+      <br />
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" required class="textInput" />
+      <br />
+      <label for="username">Username</label>
+      <input
+        type="text"
+        name="username"
+        id="username"
+        required
+        class="textInput"
+      />
+      <br />
+      <label for="password">Password</label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        required
+        class="textInput"
+      />
+      <br />
+      <input type="submit" value="register" class="button" />
+    </form>
+    <a href="/login">Already registered? Login</a>
+
+    <script>
+      const form = document.querySelector("form");
+      const name = document.querySelector("#name");
+      const surname = document.querySelector("#surname");
+      const email = document.querySelector("#email");
+      const username = document.querySelector("#username");
+      const password = document.querySelector("#password");
+      const display = document.querySelector(".error");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        display.textContent = "";
+        try {
+          const res = await fetch("/api/auth/register", {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify({
+              name: name.value,
+              surname: surname.value,
+              email: email.value,
+              username: username.value,
+              password: password.value,
+            }),
+            headers: { "Content-Type": "application/json" },
+          });
+
+          const data = await res.json();
+          console.log(data);
+          if (res.status === 400 || res.status === 401) {
+            return (display.textContent = `${data.message}. ${
+              data.error ? data.error : ""
+            }`);
+          }
+          data.role === "admin"
+            ? location.assign("/admin")
+            : location.assign("/login");
+        } catch (error) {
+          console.log(error.message);
+        }
+      });
+    </script>
+  </body>
+</html>
