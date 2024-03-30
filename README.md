@@ -137,7 +137,7 @@ $ npm run start:dev
 - `cookie-parser`: Library for parsing cookies in Express.js
 - `ejs`: Embedded JavaScript templating engine
 
-## Contibution
+## Contribution
 
 Contributions are welcome! Feel free to open issues or submit pull requests
 
