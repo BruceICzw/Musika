@@ -41,11 +41,12 @@ $ npm run start:dev
 
 ## API Endpoints
 
-### Events
+### Adverts
 
-- `GET /api/events`: Get all events
-- `POST /api/events/upload`: Create a new event (authenticated)
-- `PUT /api/events/:id`: Update event by ID (authenticated)
+- `GET /api/adverts`: Get all approved adverts
+- `POST /api/adverts/upload`: Create a new advert (authenticated)
+- `GET /api/adverts/:category`: Get approved adverts by category
+- `PUT /api/advert/:id`: Update advert by ID (authenticated)
 - `DELETE /events/delete/:id`: Delete event by ID (authenticated)
 
 ### User Profiles
@@ -53,6 +54,12 @@ $ npm run start:dev
 - `GET /api/user/profile`:Get currently logged in user
 - `PUT /api/user/profile`: Update profile
 - `DELETE /api/user/delete/:id`: Delete profile by ID
+
+### Admin
+
+- `GET /api/admin/pending`: Get all adverts (authenticated)
+- `PUT /api/admin/approve/:id`: Approve advert by ID (authenticated)
+- `DELETE /api/admin/delete/:id`: Delete advert by ID (authenticated)
 
 ### Authentication
 
@@ -73,7 +80,7 @@ $ npm run start:dev
   "time": "String",
   "adveriserContact": "String",
   "approved": "Boolean",
-  "user": "ObjectId" //Automatically generated from jwt token
+  "user": "ObjectId"
 }
 ```
 
