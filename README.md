@@ -78,7 +78,7 @@ $ npm run start:dev
   "description": "String",
   "price": "Number",
   "time": "String",
-  "adveriserContact": "String",
+  "advertiserContact": "String",
   "approved": "Boolean",
   "user": "ObjectId"
 }
