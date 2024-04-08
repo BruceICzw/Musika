@@ -72,90 +72,91 @@
               >
                 <li>
                   <a
-                    class="dropdown-item"
+                    class="category dropdown-item"
                     href="#"
                     data-category="Textbooks and Educational Material"
+                    onclick="fetchAdvertsByCategory(event,'Textbooks and Educational Material')"
                   >
                     Textbooks and Educational Material
                   </a>
                 </li>
                 <li>
                   <a
-                    class="dropdown-item"
+                    class="category dropdown-item"
                     href="#"
                     data-category="Transportation"
+                    onclick="fetchAdvertsByCategory(event,'Transportation')"
                   >
                     Transportation
                   </a>
                 </li>
                 <li>
                   <a
-                    class="dropdown-item"
-                    href="#"
-                    class="dropdown-item"
+                    class="category dropdown-item"
                     href="#"
                     data-category="Electronics and Technology"
+                    onclick="fetchAdvertsByCategory(event,'Electronics and Technology')"
                   >
                     Electronics and Technology
                   </a>
                 </li>
                 <li>
                   <a
-                    class="dropdown-item"
-                    href="#"
-                    class="dropdown-item"
+                    class="category dropdown-item"
                     href="#"
                     data-category="Food and Beverages"
+                    onclick="fetchAdvertsByCategory(event,'Food and Beverages')"
                   >
                     Food and Beverages
                   </a>
                 </li>
                 <li>
                   <a
-                    class="dropdown-item"
-                    href="#"
-                    class="dropdown-item"
+                    class="category dropdown-item"
                     href="#"
                     data-category="Events and Tickets"
+                    onclick="fetchAdvertsByCategory('Events')"
                   >
                     Events and Tickets
                   </a>
                 </li>
                 <li>
                   <a
-                    class="dropdown-item"
-                    href="#"
-                    class="dropdown-item"
+                    class="category dropdown-item"
                     href="#"
                     data-category="Services and Jobs"
+                    onclick="fetchAdvertsByCategory(event,'Services and Jobs')"
                   >
                     Services and Jobs
                   </a>
                 </li>
                 <li>
                   <a
-                    class="dropdown-item"
-                    href="#"
-                    class="dropdown-item"
+                    class="category dropdown-item"
                     href="#"
                     data-category="Health and Wellness"
+                    onclick="fetchAdvertsByCategory(event,'Health and Wellness')"
                   >
                     Health and Wellness
                   </a>
                 </li>
                 <li>
                   <a
-                    class="dropdown-item"
-                    href="#"
-                    class="dropdown-item"
+                    class="category dropdown-item"
                     href="#"
                     data-category="Travel and Study Abroad"
+                    onclick="fetchAdvertsByCategory(event,'Travel and Study Abroad')"
                   >
                     Travel and Study Abroad
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a
+                    class="category dropdown-item"
+                    href="#"
+                    data-category="Community and Classifieds"
+                    onclick="fetchAdvertsByCategory(event,'Community and Classifieds')"
+                  >
                     Community and Classifieds
                   </a>
                 </li>
@@ -191,8 +192,10 @@
     crossorigin="anonymous"
   ></script>
   <script>
+    let adverts = document.querySelector("#adverts");
+
     function fetchAdverts(query) {
-      fetch(`/api/adverts?search=${query}`, {
+      fetch(`/api/adverts/?search=${query}`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -209,14 +212,13 @@
             advertElement.classList.add("col-xs-12");
             advertElement.classList.add("col-lg-3");
             advertElement.classList.add("col-sm-6");
-
             advertElement.innerHTML = `
               <img src='data:image/*;base64,${advert.image}' class="card-img-top" alt='${advert.productName}'>
               <div class="card-body">
                 <h5 class='card-title'>${advert.productName}</h5>
                 <p class='card-text'>$${advert.price}</p>
-               
-             
+
+
             `;
 
             advertElement.addEventListener("click", () => {
@@ -227,7 +229,7 @@
                   <div class="card-body">
                     <h5 class='card-title'>${advert.productName}</h5>
                     <p class='card-text'>Price:${advert.price}</p>
-                  
+
                 `;
               } else {
                 advertElement.classList.add("enlarged");
@@ -238,8 +240,8 @@
                     <p class='card-text'>Category:${advert.category}</p>
                     <p class='card-text'>Price:${advert.price}</p>
                     <p class='card-text'>Contact:${advert.advertiserContact}</p>
-                   
-               
+
+
                 `;
               }
             });
@@ -254,5 +256,36 @@
 
     //Fetch  all products when Page loads
     fetchAdverts("");
+
+    function fetchAdvertsByCategory(event, category) {
+      event.preventDefault();
+      adverts.innerHTML = "";
+      fetch(`/api/adverts/${category}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          data.forEach((advert) => {
+            const advertElement = document.createElement("div");
+            advertElement.classList.add("card");
+            advertElement.classList.add("col-md-4");
+            advertElement.classList.add("col-xs-12");
+            advertElement.classList.add("col-lg-3");
+            advertElement.classList.add("col-sm-6");
+            advertElement.innerHTML = `
+             <img src='data:image/*;base64,${advert.image}' class="card-img-top" alt='${advert.productName}'>
+             <div class="card-body">
+               <h5 class='card-title'>${advert.productName}</h5>
+               <p class='card-text'>$${advert.price}</p>
+           `;
+            adverts.appendChild(advertElement);
+          });
+        })
+        .catch((error) => console.error(`Fetch Error: ${error}`));
+    }
   </script>
 </html>
