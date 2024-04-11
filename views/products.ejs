@@ -115,7 +115,7 @@
                     class="category dropdown-item"
                     href="#"
                     data-category="Events and Tickets"
-                    onclick="fetchAdvertsByCategory('Events')"
+                    onclick="fetchAdvertsByCategory(event,'Events and Tickets')"
                   >
                     Events and Tickets
                   </a>
@@ -163,12 +163,13 @@
               </ul>
             </li>
           </ul>
-          <form class="d-flex">
+          <form class="d-flex" onsubmit="searchAdverts(event)">
             <input
               class="form-control me-2"
               type="search"
               placeholder="Search"
               aria-label="Search"
+              id="search"
             />
             <button class="btn btn-outline-success" type="submit">
               Search
@@ -195,6 +196,7 @@
     let adverts = document.querySelector("#adverts");
 
     function fetchAdverts(query) {
+      adverts.innerHTML = "";
       fetch(`/api/adverts/?search=${query}`, {
         method: "GET",
         credentials: "include",
@@ -256,6 +258,52 @@
 
     //Fetch  all products when Page loads
     fetchAdverts("");
+
+    function searchAdverts(event) {
+      event.preventDefault();
+      let searchQuery = document.querySelector("#search").value.trim();
+
+      if (!searchQuery) {
+        console.error("Search query cannot be empty");
+        return;
+      }
+
+      fetch(`/api/adverts/search?productName=${searchQuery}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (!Array.isArray(data)) {
+            console.error("Expected data to be an array");
+            return;
+          }
+
+          console.log(data);
+          adverts.innerHTML = ""; // Clear the previous adverts
+
+          data.forEach((advert) => {
+            const advertElement = document.createElement("div");
+            advertElement.classList.add(
+              "card",
+              "col-md-4",
+              "col-xs-12",
+              "col-lg-3",
+              "col-sm-6"
+            );
+            advertElement.innerHTML = `
+            <img src='data:image/*;base64,${advert.image}' class="card-img-top" alt='${advert.productName}'>
+            <div class="card-body">
+              <h5 class='card-title'>${advert.productName}</h5>
+              <p class='card-text'>$${advert.price}</p>
+          `;
+            adverts.appendChild(advertElement);
+          });
+        })
+        .catch((error) => console.error(`Fetch Error: ${error}`));
+    }
 
     function fetchAdvertsByCategory(event, category) {
       event.preventDefault();

@@ -10,7 +10,11 @@ router.post('/upload', Auth.userAuth, advertsController.createAdvert)
 //Get all approved adverts
 router.get('/', advertsController.getAllApprovedAdverts)
 
+//search adverts by productName
+router.get('/search', advertsController.searchAdverts);
 //Get approved adverts by category
 router.get('/:category', advertsController.getAdvertsByCategory)
+
+
 
 module.exports = router
