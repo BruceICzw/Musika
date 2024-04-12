@@ -1,6 +1,8 @@
 const User = require('../Models/User')
 const jwtSecret = require('../config/config')
 const jwt = require('jsonwebtoken')
+const fs = require('fs');
+const Advert = require('../Models/Advert');
 
 
 
@@ -78,3 +80,34 @@ exports.deleteProfile = async (req, res) => {
         res.status(500).json({ error: error.message })
     }
 }
+
+//Get all Adverts by User
+exports.getAdvertsByUser = async (req, res) => {
+    const token = req.cookies.jwt;
+
+    if (!token) {
+        return res.status(401).json({ message: 'Not authorized' })
+    }
+    let userId
+    try {
+        const decodedToken = jwt.verify(token, jwtSecret);
+        userId = decodedToken.id
+    } catch (error) {
+        return res.status(401).json({ message: 'Not authorized' })
+    }
+    try {
+        let adverts = await Advert.find({ user: userId })
+        //convert image paths to base64
+        adverts = adverts.map(advert => {
+            const imagePath = Buffer.from(advert.image, 'base64')
+            const imageBuffer = fs.readFileSync(imagePath)
+            const imageBase64 = imageBuffer.toString('base64')
+
+            //replace the image with the base64 data
+            return { ...advert._doc, image: imageBase64 }
+        })
+        res.status(200).json(adverts)
+    } catch (error) {
+        res.status(500).json({ error: error.message })
+    }
+};
